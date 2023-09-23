@@ -1,2 +1,16 @@
 # AutoAxis
  Auto Axis: A Web Auto Repair Shop Management System and a Mobile Proximity Geolocation Services
+
+# Steps on running the backend
+# env\Scripts\activate.bat
+activating the python virtual environment
+# 1. pip install -r requirements.txt
+install all prerequisites libraries in the virtual environment
+# 2. cd backend
+go to the backend folder
+# 3. python manage.py runserver
+run the command to start the server
+# 4. http://127.0.0.1:8000/admin
+go to the server admin site
+# 4. login credentials username: admin password: 123
+login the credentials
