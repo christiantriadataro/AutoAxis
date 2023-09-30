@@ -14,3 +14,16 @@ run the command to start the server
 go to the server admin site
 #### 5. login credentials username: admin password: 123
 login the credentials
+
+
+## Steps on running the frontend
+#### 2. cd backend
+go to the backend folder
+#### 3. npm install
+run the command to install all dependenies
+#### 4. npm run dev
+run the command to start the server
+#### 4. http://localhost:3000/
+go to the frontend page
+#### 5. login credentials or skip authentication
+login the credentials
