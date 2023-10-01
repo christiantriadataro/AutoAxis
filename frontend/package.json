@@ -1,10 +1,10 @@
 {
-  "name": "material-kit-react",
-  "version": "3.0.0",
-  "author": "Devias",
+  "name": "AutoAxis",
+  "version": "1.0.0",
+  "author": "Christian Dataro",
   "licence": "MIT",
-  "homepage": "https://devias.io",
-  "private": false,
+  "homepage": "https://autoAxis.tech",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
