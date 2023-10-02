@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
   Avatar,
-  Box,
+  Box, Button,
   Card,
-  Checkbox,
-  Stack,
+  Checkbox, IconButton,
+  Stack, SvgIcon,
   Table,
   TableBody,
   TableCell,
@@ -16,8 +16,10 @@ import {
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
 
-export const CustomersTable = (props) => {
+export const AccountsTable = (props) => {
   const {
     count = 0,
     items = [],
@@ -59,16 +61,20 @@ export const CustomersTable = (props) => {
                   Name
                 </TableCell>
                 <TableCell>
+                  Role
+                </TableCell>
+                <TableCell>
                   Email
+                </TableCell>
+
+                <TableCell>
+                  Phone
                 </TableCell>
                 <TableCell>
                   Location
                 </TableCell>
                 <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Signed Up
+                  Actions
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -110,16 +116,28 @@ export const CustomersTable = (props) => {
                       </Stack>
                     </TableCell>
                     <TableCell>
-                      {customer.email}
+                      {customer.role}
                     </TableCell>
                     <TableCell>
-                      {customer.address.city}, {customer.address.state}, {customer.address.country}
+                      {customer.email}
                     </TableCell>
                     <TableCell>
                       {customer.phone}
                     </TableCell>
                     <TableCell>
-                      {createdAt}
+                      {customer.address.city}, {customer.address.state}, {customer.address.country}
+                    </TableCell>
+                    <TableCell>
+                      <IconButton size="small" color="primary">
+                        <SvgIcon fontSize="small">
+                          <PencilIcon />
+                        </SvgIcon>
+                      </IconButton>
+                      <IconButton size="small" color="error">
+                        <SvgIcon fontSize="small">
+                          <TrashIcon />
+                        </SvgIcon>
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 );
@@ -141,7 +159,7 @@ export const CustomersTable = (props) => {
   );
 };
 
-CustomersTable.propTypes = {
+AccountsTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

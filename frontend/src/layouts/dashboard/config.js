@@ -19,17 +19,8 @@ export const items = [
     )
   },
   {
-    title: 'Customers',
-    path: '/customers',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UsersIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Account',
-    path: '/account',
+    title: 'Accounts',
+    path: '/accounts',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -47,7 +38,7 @@ export const items = [
   },
   {
     title: 'Towing Request',
-    path: '/request',
+    path: '/requests',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -64,8 +55,8 @@ export const items = [
     )
   },
   {
-    title: 'Vehicles',
-    path: '/vehicles',
+    title: 'Vehicle',
+    path: '/vehicle',
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />

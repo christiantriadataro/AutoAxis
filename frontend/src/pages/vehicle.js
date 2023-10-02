@@ -7,8 +7,8 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { CustomersTable } from 'src/sections/customer/customers-table';
-import { CustomersSearch } from 'src/sections/customer/customers-search';
+import { AccountsTable } from 'src/sections/accounts/accounts-table';
+import { AccountsSearch } from 'src/sections/accounts/accounts-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -25,6 +25,7 @@ const data = [
     avatar: '/assets/avatars/avatar-mark-galvez.png',
     createdAt: subDays(subHours(now, 11), 2).getTime(),
     email: 'markgalvez@gmail.com',
+    role: 'Marketing',
     name: 'Mark Galvez',
     phone: '099999999999'
   },
@@ -39,6 +40,7 @@ const data = [
     avatar: '/assets/avatars/avatar-luis-lucero.png',
     createdAt: subDays(subHours(now, 7), 1).getTime(),
     email: 'luislucero@gmail.com',
+    role: 'Towing Provider',
     name: 'Luis Lucero',
     phone: '099999999789'
   },
@@ -53,6 +55,7 @@ const data = [
     avatar: '/assets/avatars/avatar-andrei-nicholas.png',
     createdAt: subDays(subHours(now, 1), 2).getTime(),
     email: 'andreinicholas@gmail.com',
+    role: 'Customer',
     name: 'Andrei Nicholas',
     phone: '099999456789'
   },
@@ -102,7 +105,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Customers | AutoAxis
+          Vehicle | AutoAxis
         </title>
       </Head>
       <Box
@@ -121,7 +124,7 @@ const Page = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Customers
+                  Vehicle
                 </Typography>
                 <Stack
                   alignItems="center"
@@ -163,8 +166,8 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <CustomersSearch />
-            <CustomersTable
+            <AccountsSearch />
+            <AccountsTable
               count={data.length}
               items={customers}
               onDeselectAll={customersSelection.handleDeselectAll}
