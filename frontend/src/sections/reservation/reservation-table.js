@@ -18,8 +18,15 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
+import { SeverityPill } from '../../components/severity-pill';
 
-export const AccountsTable = (props) => {
+const statusMap = {
+  ongoing: 'warning',
+  completed: 'success',
+};
+
+
+export const ReservationTable = (props) => {
   const {
     count = 0,
     items = [],
@@ -57,35 +64,24 @@ export const AccountsTable = (props) => {
                     }}
                   />
                 </TableCell>
-                <TableCell>
-                  Name
-                </TableCell>
-                <TableCell>
-                  Role
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-
-                <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Actions
-                </TableCell>
+                <TableCell>Reservation ID</TableCell>
+                <TableCell>Customer</TableCell>
+                <TableCell>Vehicle</TableCell>
+                <TableCell>Datetime</TableCell>
+                <TableCell>Pick up Location</TableCell>
+                <TableCell>Drop off Location</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((account) => {
-                const isSelected = selected.includes(account.id);
-                const createdAt = format(account.createdAt, 'dd/MM/yyyy');
+              {items.map((reservation) => {
+                const isSelected = selected.includes(reservation.id);
+                const createdAt = format(reservation.datetime, 'dd/MM/yyyy');
                 return (
                   <TableRow
                     hover
-                    key={account.id}
+                    key={reservation.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
@@ -93,12 +89,15 @@ export const AccountsTable = (props) => {
                         checked={isSelected}
                         onChange={(event) => {
                           if (event.target.checked) {
-                            onSelectOne?.(account.id);
+                            onSelectOne?.(reservation.id);
                           } else {
-                            onDeselectOne?.(account.id);
+                            onDeselectOne?.(reservation.id);
                           }
                         }}
                       />
+                    </TableCell>
+                    <TableCell>
+                      {reservation.reservation_id}
                     </TableCell>
                     <TableCell>
                       <Stack
@@ -106,25 +105,22 @@ export const AccountsTable = (props) => {
                         direction="row"
                         spacing={2}
                       >
-                        <Avatar src={account.avatar}>
-                          {getInitials(account.name)}
+                        <Avatar src={reservation.avatar}>
+                          {getInitials(reservation.customer)}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {account.name}
+                          {reservation.customer}
                         </Typography>
                       </Stack>
                     </TableCell>
+                    <TableCell>{reservation.vehicle}</TableCell>
+                    <TableCell>{createdAt}</TableCell>
+                    <TableCell>{reservation.pick_up_location}</TableCell>
+                    <TableCell>{reservation.drop_off_location}</TableCell>
                     <TableCell>
-                      {account.role}
-                    </TableCell>
-                    <TableCell>
-                      {account.email}
-                    </TableCell>
-                    <TableCell>
-                      {account.phone}
-                    </TableCell>
-                    <TableCell>
-                      {account.address.city}, {account.address.state}, {account.address.country}
+                      <SeverityPill color={statusMap[reservation.status]}>
+                        {reservation.status}
+                      </SeverityPill>
                     </TableCell>
                     <TableCell>
                       <Stack
@@ -132,16 +128,16 @@ export const AccountsTable = (props) => {
                         direction="row"
                         spacing={0}
                       >
-                      <IconButton size="small" color="primary">
-                        <SvgIcon fontSize="small">
-                          <PencilIcon />
-                        </SvgIcon>
-                      </IconButton>
-                      <IconButton size="small" color="error">
-                        <SvgIcon fontSize="small">
-                          <TrashIcon />
-                        </SvgIcon>
-                      </IconButton>
+                        <IconButton size="small" color="primary">
+                          <SvgIcon fontSize="small">
+                            <PencilIcon />
+                          </SvgIcon>
+                        </IconButton>
+                        <IconButton size="small" color="error">
+                          <SvgIcon fontSize="small">
+                            <TrashIcon />
+                          </SvgIcon>
+                        </IconButton>
                       </Stack>
                     </TableCell>
                   </TableRow>
@@ -164,7 +160,7 @@ export const AccountsTable = (props) => {
   );
 };
 
-AccountsTable.propTypes = {
+ReservationTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

@@ -74,7 +74,7 @@ const useAccounts = (page, rowsPerPage) => {
 const useAccountsIds = (accounts) => {
   return useMemo(
     () => {
-      return accounts.map((customer) => customer.id);
+      return accounts.map((accounts) => accounts.id);
     },
     [accounts]
   );

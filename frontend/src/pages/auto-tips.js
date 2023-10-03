@@ -7,8 +7,8 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { AccountsTable } from 'src/sections/accounts/accounts-table';
-import { AccountsSearch } from 'src/sections/accounts/accounts-search';
+import { AutotipsTable } from 'src/sections/autotips/autotips-table';
+import { AutotipsSearch } from 'src/sections/autotips/autotips-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -16,53 +16,38 @@ const now = new Date();
 const data = [
   {
     id: '5e86809283e28b96d2d38537',
-    address: {
-      city: 'Pasig',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Ewan'
-    },
+    tip_id: "R20231002-1145",
+    title: "How to fix steering wheel",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    marketing: "Luis Lucero",
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
     avatar: '/assets/avatars/avatar-mark-galvez.png',
-    createdAt: subDays(subHours(now, 11), 2).getTime(),
-    email: 'markgalvez@gmail.com',
-    role: 'Marketing',
-    name: 'Mark Galvez',
-    phone: '099999999999'
   },
   {
     id: '5e887ac47eed253091be10cb',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
+    tip_id: "R20231002-1025",
+    title: "How to fix steering wheel",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    marketing: "Mark Galvez",
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
     avatar: '/assets/avatars/avatar-luis-lucero.png',
-    createdAt: subDays(subHours(now, 7), 1).getTime(),
-    email: 'luislucero@gmail.com',
-    role: 'Towing Provider',
-    name: 'Luis Lucero',
-    phone: '099999999789'
   },
   {
     id: '5e887b209c28ac3dd97f6db5',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
+    tip_id: "R20231002-0645",
+    title: "How to fix steering wheel",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    marketing: "Andrei Nicholas",
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
     avatar: '/assets/avatars/avatar-andrei-nicholas.png',
-    createdAt: subDays(subHours(now, 1), 2).getTime(),
-    email: 'andreinicholas@gmail.com',
-    role: 'Customer',
-    name: 'Andrei Nicholas',
-    phone: '099999456789'
   },
 
 ];
 
-const useCustomers = (page, rowsPerPage) => {
+const useAutotips = (page, rowsPerPage) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -71,21 +56,21 @@ const useCustomers = (page, rowsPerPage) => {
   );
 };
 
-const useCustomerIds = (customers) => {
+const useAutotipsIds = (autotips) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return autotips.map((autotips) => autotips.id);
     },
-    [customers]
+    [autotips]
   );
 };
 
 const Page = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const autotips = useAutotips(page, rowsPerPage);
+  const autotipsIds = useAutotipsIds(autotips);
+  const autotipsSelection = useSelection(autotipsIds);
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -166,19 +151,19 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <AccountsSearch />
-            <AccountsTable
+            <AutotipsSearch />
+            <AutotipsTable
               count={data.length}
-              items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+              items={autotips}
+              onDeselectAll={autotipsSelection.handleDeselectAll}
+              onDeselectOne={autotipsSelection.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+              onSelectAll={autotipsSelection.handleSelectAll}
+              onSelectOne={autotipsSelection.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              selected={autotipsSelection.selected}
             />
           </Stack>
         </Container>

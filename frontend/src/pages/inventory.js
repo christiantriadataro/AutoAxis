@@ -7,8 +7,8 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { AccountsTable } from 'src/sections/accounts/accounts-table';
-import { AccountsSearch } from 'src/sections/accounts/accounts-search';
+import { InventoryTable } from 'src/sections/inventory/inventory-table';
+import { InventorySearch } from 'src/sections/inventory/inventory-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -16,53 +16,42 @@ const now = new Date();
 const data = [
   {
     id: '5e86809283e28b96d2d38537',
-    address: {
-      city: 'Pasig',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Ewan'
-    },
-    avatar: '/assets/avatars/avatar-mark-galvez.png',
-    createdAt: subDays(subHours(now, 11), 2).getTime(),
-    email: 'markgalvez@gmail.com',
-    role: 'Marketing',
-    name: 'Mark Galvez',
-    phone: '099999999999'
+    item_id: "R20231002-1145",
+    image: '/assets/avatars/avatar-mark-galvez.png',
+    item: 'Wrench',
+    category: 'Tools',
+    mechanic: "Mark Galvez",
+    status: 'borrowed',
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
+
   },
   {
     id: '5e887ac47eed253091be10cb',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
-    avatar: '/assets/avatars/avatar-luis-lucero.png',
-    createdAt: subDays(subHours(now, 7), 1).getTime(),
-    email: 'luislucero@gmail.com',
-    role: 'Towing Provider',
-    name: 'Luis Lucero',
-    phone: '099999999789'
+    item_id: "R20231002-1025",
+    image: '/assets/avatars/avatar-luis-lucero.png',
+    item: 'Wrench',
+    category: 'Tools',
+    mechanic: "Luis Lucero",
+    status: 'borrowed',
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
   },
   {
     id: '5e887b209c28ac3dd97f6db5',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
-    avatar: '/assets/avatars/avatar-andrei-nicholas.png',
-    createdAt: subDays(subHours(now, 1), 2).getTime(),
-    email: 'andreinicholas@gmail.com',
-    role: 'Customer',
-    name: 'Andrei Nicholas',
-    phone: '099999456789'
+    item_id: "R20231002-0645",
+    image: '/assets/avatars/avatar-andrei-nicholas.png',
+    item: 'Wrench',
+    category: 'Tools',
+    mechanic: "Andrei Nicholas",
+    status: 'borrowed',
+    created_at: new Date(2023, 6, 2),
+    updated_at: new Date(2023, 6, 2),
   },
 
 ];
 
-const useCustomers = (page, rowsPerPage) => {
+const useInventorys = (page, rowsPerPage) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -71,21 +60,21 @@ const useCustomers = (page, rowsPerPage) => {
   );
 };
 
-const useCustomerIds = (customers) => {
+const useInventoryIds = (inventory) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return inventory.map((inventory) => inventory.id);
     },
-    [customers]
+    [inventory]
   );
 };
 
 const Page = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const inventory = useInventorys(page, rowsPerPage);
+  const inventoryIds = useInventoryIds(inventory);
+  const inventorySelection = useSelection(inventoryIds);
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -166,19 +155,19 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <AccountsSearch />
-            <AccountsTable
+            <InventorySearch />
+            <InventoryTable
               count={data.length}
-              items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+              items={inventory}
+              onDeselectAll={inventorySelection.handleDeselectAll}
+              onDeselectOne={inventorySelection.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+              onSelectAll={inventorySelection.handleSelectAll}
+              onSelectOne={inventorySelection.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              selected={inventorySelection.selected}
             />
           </Stack>
         </Container>

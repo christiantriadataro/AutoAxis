@@ -18,8 +18,10 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
+import { SeverityPill } from '../../components/severity-pill';
 
-export const AccountsTable = (props) => {
+
+export const AutotipsTable = (props) => {
   const {
     count = 0,
     items = [],
@@ -57,35 +59,25 @@ export const AccountsTable = (props) => {
                     }}
                   />
                 </TableCell>
-                <TableCell>
-                  Name
-                </TableCell>
-                <TableCell>
-                  Role
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-
-                <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Actions
-                </TableCell>
+                <TableCell>Tips ID</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Body</TableCell>
+                <TableCell>Marketing</TableCell>
+                <TableCell>Created at</TableCell>
+                <TableCell>Updated at</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((account) => {
-                const isSelected = selected.includes(account.id);
-                const createdAt = format(account.createdAt, 'dd/MM/yyyy');
+              {items.map((autotips) => {
+                const isSelected = selected.includes(autotips.id);
+                const createdAt = format(autotips.created_at, 'dd/MM/yyyy');
+                const updatedAt = format(autotips.updated_at, 'dd/MM/yyyy');
+
                 return (
                   <TableRow
                     hover
-                    key={account.id}
+                    key={autotips.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
@@ -93,55 +85,50 @@ export const AccountsTable = (props) => {
                         checked={isSelected}
                         onChange={(event) => {
                           if (event.target.checked) {
-                            onSelectOne?.(account.id);
+                            onSelectOne?.(autotips.id);
                           } else {
-                            onDeselectOne?.(account.id);
+                            onDeselectOne?.(autotips.id);
                           }
                         }}
                       />
                     </TableCell>
+                    <TableCell>
+                      {autotips.tip_id}
+                    </TableCell>
+                    <TableCell>{autotips.title}</TableCell>
+                    <TableCell>{autotips.body}</TableCell>
                     <TableCell>
                       <Stack
                         alignItems="center"
                         direction="row"
                         spacing={2}
                       >
-                        <Avatar src={account.avatar}>
-                          {getInitials(account.name)}
+                        <Avatar src={autotips.avatar}>
+                          {getInitials(autotips.marketing)}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {account.name}
+                          {autotips.marketing}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>
-                      {account.role}
-                    </TableCell>
-                    <TableCell>
-                      {account.email}
-                    </TableCell>
-                    <TableCell>
-                      {account.phone}
-                    </TableCell>
-                    <TableCell>
-                      {account.address.city}, {account.address.state}, {account.address.country}
-                    </TableCell>
+                    <TableCell>{createdAt}</TableCell>
+                    <TableCell>{updatedAt}</TableCell>
                     <TableCell>
                       <Stack
                         alignItems="center"
                         direction="row"
                         spacing={0}
                       >
-                      <IconButton size="small" color="primary">
-                        <SvgIcon fontSize="small">
-                          <PencilIcon />
-                        </SvgIcon>
-                      </IconButton>
-                      <IconButton size="small" color="error">
-                        <SvgIcon fontSize="small">
-                          <TrashIcon />
-                        </SvgIcon>
-                      </IconButton>
+                        <IconButton size="small" color="primary">
+                          <SvgIcon fontSize="small">
+                            <PencilIcon />
+                          </SvgIcon>
+                        </IconButton>
+                        <IconButton size="small" color="error">
+                          <SvgIcon fontSize="small">
+                            <TrashIcon />
+                          </SvgIcon>
+                        </IconButton>
                       </Stack>
                     </TableCell>
                   </TableRow>
@@ -164,7 +151,7 @@ export const AccountsTable = (props) => {
   );
 };
 
-AccountsTable.propTypes = {
+AutotipsTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

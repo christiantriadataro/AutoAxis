@@ -7,8 +7,8 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { AccountsTable } from 'src/sections/accounts/accounts-table';
-import { AccountsSearch } from 'src/sections/accounts/accounts-search';
+import { RequestsTable } from 'src/sections/requests/requests-table';
+import { RequestsSearch } from 'src/sections/requests/requests-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -16,53 +16,44 @@ const now = new Date();
 const data = [
   {
     id: '5e86809283e28b96d2d38537',
-    address: {
-      city: 'Pasig',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Ewan'
-    },
+    request_id: "R20231002-1145",
+    customer: 'Luigi Dela Cruz',
+    towing_provider: 'Mark Galvez',
     avatar: '/assets/avatars/avatar-mark-galvez.png',
-    createdAt: subDays(subHours(now, 11), 2).getTime(),
+    vehicle: "Toyota Camry Sedan",
     email: 'markgalvez@gmail.com',
-    role: 'Marketing',
-    name: 'Mark Galvez',
-    phone: '099999999999'
+    datetime: new Date(2023, 6, 2),
+    pick_up_location: 'JX98+7QC Manila, Metro Manila',
+    drop_off_location: "JX99+Q59 Manila, Metro Manila",
+    status: 'ongoing',
   },
   {
     id: '5e887ac47eed253091be10cb',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
+    request_id: "R20231002-1025",
+    customer: 'Luis Lucero',
+    towing_provider: 'Mark Galvez',
     avatar: '/assets/avatars/avatar-luis-lucero.png',
-    createdAt: subDays(subHours(now, 7), 1).getTime(),
-    email: 'luislucero@gmail.com',
-    role: 'Towing Provider',
-    name: 'Luis Lucero',
-    phone: '099999999789'
+    datetime: new Date(2023, 6, 2),
+    pick_up_location: 'JX98+7QC Manila, Metro Manila',
+    drop_off_location: "JX99+Q59 Manila, Metro Manila",
+    status: 'completed',
   },
   {
     id: '5e887b209c28ac3dd97f6db5',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
+    request_id: "R20231002-0645",
+    customer: 'Andrei Nicholas',
+    towing_provider: 'Mark Galvez',
+    vehicle: 'Chevrolet Malibu Sedan',
     avatar: '/assets/avatars/avatar-andrei-nicholas.png',
-    createdAt: subDays(subHours(now, 1), 2).getTime(),
-    email: 'andreinicholas@gmail.com',
-    role: 'Customer',
-    name: 'Andrei Nicholas',
-    phone: '099999456789'
+    datetime: new Date(2023, 6, 2),
+    pick_up_location: 'JX98+7QC Manila, Metro Manila',
+    drop_off_location: "JX99+Q59 Manila, Metro Manila",
+    status: 'completed',
   },
 
 ];
 
-const useCustomers = (page, rowsPerPage) => {
+const useRequests = (page, rowsPerPage) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -71,21 +62,21 @@ const useCustomers = (page, rowsPerPage) => {
   );
 };
 
-const useCustomerIds = (customers) => {
+const useRequestIds = (requests) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return requests.map((request) => request.id);
     },
-    [customers]
+    [requests]
   );
 };
 
 const Page = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const requests = useRequests(page, rowsPerPage);
+  const requestsIds = useRequestIds(requests);
+  const requestsSelection = useSelection(requestsIds);
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -105,7 +96,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Accounts | AutoAxis
+          Towing Requests | AutoAxis
         </title>
       </Head>
       <Box
@@ -124,7 +115,7 @@ const Page = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Accounts
+                  Towing Requests
                 </Typography>
                 <Stack
                   alignItems="center"
@@ -166,19 +157,19 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <AccountsSearch />
-            <AccountsTable
+            <RequestsSearch />
+            <RequestsTable
               count={data.length}
-              items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+              items={requests}
+              onDeselectAll={requestsSelection.handleDeselectAll}
+              onDeselectOne={requestsSelection.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+              onSelectAll={requestsSelection.handleSelectAll}
+              onSelectOne={requestsSelection.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              selected={requestsSelection.selected}
             />
           </Stack>
         </Container>

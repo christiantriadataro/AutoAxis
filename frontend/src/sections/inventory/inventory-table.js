@@ -18,8 +18,15 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
+import { SeverityPill } from '../../components/severity-pill';
 
-export const AccountsTable = (props) => {
+const StatusMap = {
+  borrowed: 'warning',
+  available: 'success',
+};
+
+
+export const InventoryTable = (props) => {
   const {
     count = 0,
     items = [],
@@ -57,35 +64,26 @@ export const AccountsTable = (props) => {
                     }}
                   />
                 </TableCell>
-                <TableCell>
-                  Name
-                </TableCell>
-                <TableCell>
-                  Role
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-
-                <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Actions
-                </TableCell>
+                <TableCell>Item ID</TableCell>
+                <TableCell>Item</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Mechanic</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Created at</TableCell>
+                <TableCell>Updated at</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((account) => {
-                const isSelected = selected.includes(account.id);
-                const createdAt = format(account.createdAt, 'dd/MM/yyyy');
+              {items.map((inventory) => {
+                const isSelected = selected.includes(inventory.id);
+                const createdAt = format(inventory.created_at, 'dd/MM/yyyy');
+                const updatedAt = format(inventory.updated_at, 'dd/MM/yyyy');
+
                 return (
                   <TableRow
                     hover
-                    key={account.id}
+                    key={inventory.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
@@ -93,12 +91,15 @@ export const AccountsTable = (props) => {
                         checked={isSelected}
                         onChange={(event) => {
                           if (event.target.checked) {
-                            onSelectOne?.(account.id);
+                            onSelectOne?.(inventory.id);
                           } else {
-                            onDeselectOne?.(account.id);
+                            onDeselectOne?.(inventory.id);
                           }
                         }}
                       />
+                    </TableCell>
+                    <TableCell>
+                      {inventory.item_id}
                     </TableCell>
                     <TableCell>
                       <Stack
@@ -106,25 +107,22 @@ export const AccountsTable = (props) => {
                         direction="row"
                         spacing={2}
                       >
-                        <Avatar src={account.avatar}>
-                          {getInitials(account.name)}
+                        <Avatar src={inventory.image}>
+                          {getInitials(inventory.item)}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {account.name}
+                          {inventory.item}
                         </Typography>
                       </Stack>
                     </TableCell>
+                    <TableCell>{inventory.category}</TableCell>
+                    <TableCell>{inventory.mechanic}</TableCell>
+                    <TableCell>{createdAt}</TableCell>
+                    <TableCell>{updatedAt}</TableCell>
                     <TableCell>
-                      {account.role}
-                    </TableCell>
-                    <TableCell>
-                      {account.email}
-                    </TableCell>
-                    <TableCell>
-                      {account.phone}
-                    </TableCell>
-                    <TableCell>
-                      {account.address.city}, {account.address.state}, {account.address.country}
+                      <SeverityPill color={StatusMap[inventory.status]}>
+                        {inventory.status}
+                      </SeverityPill>
                     </TableCell>
                     <TableCell>
                       <Stack
@@ -132,16 +130,16 @@ export const AccountsTable = (props) => {
                         direction="row"
                         spacing={0}
                       >
-                      <IconButton size="small" color="primary">
-                        <SvgIcon fontSize="small">
-                          <PencilIcon />
-                        </SvgIcon>
-                      </IconButton>
-                      <IconButton size="small" color="error">
-                        <SvgIcon fontSize="small">
-                          <TrashIcon />
-                        </SvgIcon>
-                      </IconButton>
+                        <IconButton size="small" color="primary">
+                          <SvgIcon fontSize="small">
+                            <PencilIcon />
+                          </SvgIcon>
+                        </IconButton>
+                        <IconButton size="small" color="error">
+                          <SvgIcon fontSize="small">
+                            <TrashIcon />
+                          </SvgIcon>
+                        </IconButton>
                       </Stack>
                     </TableCell>
                   </TableRow>
@@ -164,7 +162,7 @@ export const AccountsTable = (props) => {
   );
 };
 
-AccountsTable.propTypes = {
+InventoryTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

@@ -41,7 +41,7 @@ const Page = () => (
               difference={12}
               positive
               sx={{ height: '100%' }}
-              value="79"
+              value="200"
             />
           </Grid>
           <Grid
@@ -53,7 +53,7 @@ const Page = () => (
               difference={16}
               positive={false}
               sx={{ height: '100%' }}
-              value="70"
+              value="1.6k"
             />
           </Grid>
           <Grid
@@ -73,7 +73,7 @@ const Page = () => (
           >
             <OverviewTotalProfit
               sx={{ height: '100%' }}
-              value="73,000"
+              value="53,123"
             />
           </Grid>
           <Grid
@@ -84,11 +84,11 @@ const Page = () => (
               chartSeries={[
                 {
                   name: 'This year',
-                  data: [78, 76, 65, 68, 63, 74, 74, 76, 77, 79, 78, 80]
+                  data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20]
                 },
                 {
                   name: 'Last year',
-                  data: [62, 61, 54, 56, 52, 59, 59, 60, 61, 62, 63, 63]
+                  data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13]
                 }
               ]}
               sx={{ height: '100%' }}

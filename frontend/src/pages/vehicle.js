@@ -7,8 +7,8 @@ import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { AccountsTable } from 'src/sections/accounts/accounts-table';
-import { AccountsSearch } from 'src/sections/accounts/accounts-search';
+import { VehicleTable } from 'src/sections/vehicle/vehicle-table';
+import { VehicleSearch } from 'src/sections/vehicle/vehicle-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -16,53 +16,37 @@ const now = new Date();
 const data = [
   {
     id: '5e86809283e28b96d2d38537',
-    address: {
-      city: 'Pasig',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Ewan'
-    },
+    vehicle_id: "R20231002-1145",
+    brand: "Toyota",
+    model: "Camry",
+    plate_number: "XYZ 123",
+    type: "Sedan",
+    customer: 'Luigi Dela Cruz',
     avatar: '/assets/avatars/avatar-mark-galvez.png',
-    createdAt: subDays(subHours(now, 11), 2).getTime(),
-    email: 'markgalvez@gmail.com',
-    role: 'Marketing',
-    name: 'Mark Galvez',
-    phone: '099999999999'
   },
   {
     id: '5e887ac47eed253091be10cb',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
+    vehicle_id: "R20231002-1025",
+    brand: "Toyota",
+    model: "Camry",
+    plate_number: "XYZ 123",
+    type: "Sedan",
+    customer: 'Luis Lucero',
     avatar: '/assets/avatars/avatar-luis-lucero.png',
-    createdAt: subDays(subHours(now, 7), 1).getTime(),
-    email: 'luislucero@gmail.com',
-    role: 'Towing Provider',
-    name: 'Luis Lucero',
-    phone: '099999999789'
   },
   {
     id: '5e887b209c28ac3dd97f6db5',
-    address: {
-      city: 'Manila',
-      country: 'Philippines',
-      state: 'NCR',
-      street: 'Sampaloc, Manila'
-    },
-    avatar: '/assets/avatars/avatar-andrei-nicholas.png',
-    createdAt: subDays(subHours(now, 1), 2).getTime(),
-    email: 'andreinicholas@gmail.com',
-    role: 'Customer',
-    name: 'Andrei Nicholas',
-    phone: '099999456789'
+    vehicle_id: "R20231002-0645",
+    brand: "Toyota",
+    model: "Camry",
+    type: "Sedan",
+    plate_number: "XYZ 123",
+    customer: 'Andrei Nicholas',
   },
 
 ];
 
-const useCustomers = (page, rowsPerPage) => {
+const useVehicles = (page, rowsPerPage) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -71,21 +55,21 @@ const useCustomers = (page, rowsPerPage) => {
   );
 };
 
-const useCustomerIds = (customers) => {
+const useVehicleIds = (vehicles) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return vehicles.map((vehicle) => vehicle.id);
     },
-    [customers]
+    [vehicles]
   );
 };
 
 const Page = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const vehicles = useVehicles(page, rowsPerPage);
+  const vehiclesIds = useVehicleIds(vehicles);
+  const vehiclesSelection = useSelection(vehiclesIds);
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -166,19 +150,19 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <AccountsSearch />
-            <AccountsTable
+            <VehicleSearch />
+            <VehicleTable
               count={data.length}
-              items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+              items={vehicles}
+              onDeselectAll={vehiclesSelection.handleDeselectAll}
+              onDeselectOne={vehiclesSelection.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+              onSelectAll={vehiclesSelection.handleSelectAll}
+              onSelectOne={vehiclesSelection.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              selected={vehiclesSelection.selected}
             />
           </Stack>
         </Container>
