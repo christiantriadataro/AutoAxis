@@ -14,75 +14,75 @@ import { applyPagination } from 'src/utils/apply-pagination';
 const now = new Date();
 
 //
-// const data = [
-//   {
-//     id: '5e86809283e28b96d2d38537',
-//     address: {
-//       city: 'Pasig',
-//       country: 'Philippines',
-//       state: 'NCR',
-//       street: 'Ewan'
-//     },
-//     avatar: '/assets/avatars/avatar-mark-galvez.png',
-//     createdAt: subDays(subHours(now, 11), 2).getTime(),
-//     email: 'markgalvez@gmail.com',
-//     role: 'Marketing',
-//     name: 'Mark Galvez',
-//     phone: '099999999999'
-//   },
-//   {
-//     id: '5e887ac47eed253091be10cb',
-//     address: {
-//       city: 'Manila',
-//       country: 'Philippines',
-//       state: 'NCR',
-//       street: 'Sampaloc, Manila'
-//     },
-//     avatar: '/assets/avatars/avatar-luis-lucero.png',
-//     createdAt: subDays(subHours(now, 7), 1).getTime(),
-//     email: 'luislucero@gmail.com',
-//     role: 'Towing Provider',
-//     name: 'Luis Lucero',
-//     phone: '099999999789'
-//   },
-//   {
-//     id: '5e887b209c28ac3dd97f6db5',
-//     address: {
-//       city: 'Manila',
-//       country: 'Philippines',
-//       state: 'NCR',
-//       street: 'Sampaloc, Manila'
-//     },
-//     avatar: '/assets/avatars/avatar-andrei-nicholas.png',
-//     createdAt: subDays(subHours(now, 1), 2).getTime(),
-//     email: 'andreinicholas@gmail.com',
-//     role: 'Customer',
-//     name: 'Andrei Nicholas',
-//     phone: '099999456789'
-//   },
+const data = [
+  {
+    id: '5e86809283e28b96d2d38537',
+    address: {
+      city: 'Pasig',
+      country: 'Philippines',
+      state: 'NCR',
+      street: 'Ewan'
+    },
+    avatar: '/assets/avatars/avatar-mark-galvez.png',
+    createdAt: subDays(subHours(now, 11), 2).getTime(),
+    email: 'markgalvez@gmail.com',
+    role: 'Marketing',
+    name: 'Mark Galvez',
+    phone: '099999999999'
+  },
+  {
+    id: '5e887ac47eed253091be10cb',
+    address: {
+      city: 'Manila',
+      country: 'Philippines',
+      state: 'NCR',
+      street: 'Sampaloc, Manila'
+    },
+    avatar: '/assets/avatars/avatar-luis-lucero.png',
+    createdAt: subDays(subHours(now, 7), 1).getTime(),
+    email: 'luislucero@gmail.com',
+    role: 'Towing Provider',
+    name: 'Luis Lucero',
+    phone: '099999999789'
+  },
+  {
+    id: '5e887b209c28ac3dd97f6db5',
+    address: {
+      city: 'Manila',
+      country: 'Philippines',
+      state: 'NCR',
+      street: 'Sampaloc, Manila'
+    },
+    avatar: '/assets/avatars/avatar-andrei-nicholas.png',
+    createdAt: subDays(subHours(now, 1), 2).getTime(),
+    email: 'andreinicholas@gmail.com',
+    role: 'Customer',
+    name: 'Andrei Nicholas',
+    phone: '099999456789'
+  },
+
+];
+
+
+// const useAccountData = () => {
+//   const [data, setData] = useState([]);
 //
-// ];
-
-
-const useAccountData = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from the Django API endpoint
-    fetch('http://127.0.0.1:8000/api/accounts/')
-      .then((response) => response.json())
-      .then((responseData) => {
-        setData(responseData);
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
-  }, []); // Empty dependency array to fetch data only once when the component mounts
-
-  return data;
-};
-
-const data = useAccountData();
+//   useEffect(() => {
+//     // Fetch data from the Django API endpoint
+//     fetch('http://127.0.0.1:8000/api/accounts/')
+//       .then((response) => response.json())
+//       .then((responseData) => {
+//         setData(responseData);
+//       })
+//       .catch((error) => {
+//         console.log('Error:', error);
+//       });
+//   }, []); // Empty dependency array to fetch data only once when the component mounts
+//
+//   return data;
+// };
+//
+// const data = useAccountData();
 
 const useAccounts = (page, rowsPerPage) => {
   return useMemo(
