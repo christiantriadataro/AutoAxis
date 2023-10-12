@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Customer, Mechanic, TowingProvider, Marketing, Accountant, Admin, Billing
+from .models import *
 
 
+admin.site.register(CustomUser)
 admin.site.register(Customer)
 admin.site.register(Admin)
 admin.site.register(Mechanic)
