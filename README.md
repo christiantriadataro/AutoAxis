@@ -27,3 +27,14 @@ run the command to start the server
 go to the frontend page
 #### 5. login credentials or skip authentication
 login the credentials
+
+
+## Steps on running the mobile
+#### 2. cd mobile
+go to the backend folder
+#### 3. npm install
+run the command to install all dependenies
+#### 4. npx expo start
+run the command to start the server
+#### 5. wait for the emulator to open and start the app
+
